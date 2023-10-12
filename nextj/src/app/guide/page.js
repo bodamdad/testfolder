@@ -15,35 +15,42 @@ export default function guide() {
   return (
     <div className="guide">
 
-<h4 class="title">ㅇㅇㅇ</h4>
-    <ul className="list">
-      <li></li>
-      <li></li>
-      <li></li>
-    </ul>
+    <h4 class="title">ㅇㅇㅇ</h4>
+        <ul className="list">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
 
-    <h4 class="title">next 미리보기</h4>
-    <ul className="list">
+    <h4 class="title">프로젝트 생성하기</h4>
+      <ul className="list">
       <li>터미널에서 아래 문구 입력</li>
-      <li>npm run dev</li>
-    </ul>
+        <li>npx create-next-app@latest</li>
+        <li></li>
+      </ul>
 
-<h4 class="title">함수 복사</h4>
-<Image src={guide08} alt=""/>
-<ul className="list">
-  <li>copy로 복사 후 수정 후 기존 set함수에 넣는 방식</li>
-</ul>
+      <h4 class="title">next 미리보기</h4>
+      <ul className="list">
+        <li>터미널에서 아래 문구 입력</li>
+        <li>npm run dev</li>
+      </ul>
 
-<h4 class="title">useState</h4>
-      <Image src={guide07} alt=""/>
-<ul className="list">
-  <li>상단에 아래 문구 표시</li>
-  <li>import &#123;useState&#125; from 'react'</li>
-  <li>let [작명, set작명] = useState(변수에넣을값);</li>
-  <li>일반 변수는 html 자동 재렌더링이 되지 않고 useState로는 자동 재렌더링이 됩니다.</li>
-  <li>(재렌더링은 html을 지웠다가 다시 만든다는 소리입니다)</li>
-  <li>작명시 변경함수는 작명앞에 set 붙이는게 관습</li>
-</ul>
+      <h4 class="title">함수 복사</h4>
+      <Image src={guide08} alt=""/>
+      <ul className="list">
+        <li>copy로 복사 후 수정 후 기존 set함수에 넣는 방식</li>
+      </ul>
+
+      <h4 class="title">useState</h4>
+            <Image src={guide07} alt=""/>
+      <ul className="list">
+        <li>상단에 아래 문구 표시</li>
+        <li>import &#123;useState&#125; from 'react'</li>
+        <li>let [작명, set작명] = useState(변수에넣을값);</li>
+        <li>일반 변수는 html 자동 재렌더링이 되지 않고 useState로는 자동 재렌더링이 됩니다.</li>
+        <li>(재렌더링은 html을 지웠다가 다시 만든다는 소리입니다)</li>
+        <li>작명시 변경함수는 작명앞에 set 붙이는게 관습</li>
+      </ul>
 
       <h4 class="title">props</h4>
       <Image src={guide06} alt=""/>
