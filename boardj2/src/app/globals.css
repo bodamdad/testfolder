@@ -1,0 +1,29 @@
+
+.navbar {
+  background: white;
+  padding: 20px;
+}
+.navbar a {
+  margin-right: 10px;
+  text-decoration: none;
+} 
+
+.cart-item {
+  padding: 10px;
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 1px solid grey;
+  line-height: 0px;
+} 
+
+.btnRed {background:red;color:#fff;border:none;cursor:pointer;}
+.food-img {width:100px;height:auto;}
+
+.guide .title {font-size:18px;margin:20px 0 10px 0;}
+.guide .list {margin:0;padding-left:20px;list-style:none;text-indent: -12px;}
+.guide .list li::before {content:'- ';}
+.guide .list + p {margin:10px 0 0 10px;}
+.guide img {display:block;}
+
+.btnTop {position:fixed;bottom:30px;right:30px;border-radius:100%;width:40px;height:40px;display:flex;justify-content:center;align-items:center;background:rgba(0,0,0,0.8);color:#fff;border:none;transition:0.2s ease;}
+.btnTop:hover {background:rgba(0,0,0,0.8);bottom:34px;cursor:pointer;}
