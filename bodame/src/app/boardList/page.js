@@ -1,5 +1,5 @@
 
-import BoardBodamList from '/component/BoardBodamList'
+import BoardBodamList from '../../component/BoardBodamList/BoardBodamList'
 
 export default async function boardList() {
   return (

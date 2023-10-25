@@ -1,0 +1,16 @@
+.listWrap {height:3000px;font-size:16px;}
+.listWrap .list {display:flex;padding:10px 0;}
+.listWrap .list h3 {position:relative;font-size:2em;font-weight:bold;flex:0 0 300px;padding-bottom:10px;}
+.listWrap .list h3::before {content:'';width:calc(100% - 30px);height:2px;background:#000;position:absolute;bottom:0px;left:0;}
+.listWrap .list .cont {flex:auto;padding:10px 0;}
+.listWrap .list h4 {font-size:1.4em;font-weight:500;margin-bottom:10px}
+.listWrap .list :is(p, code) {margin:20px 0;}
+.listWrap .list code {background:#282c34;color:#abb2bf;min-width:500px;display:block;padding:10px;font-family: inherit;font-weight:400;border-radius:4px;letter-spacing:0.05em;}
+/* code color */
+code .purple {color:#c678dd;}
+code .yellow {color:#e6c07b;}
+code .yellow2 {color:#d19a66;}
+code .green {color:#98c379;}
+
+
+
