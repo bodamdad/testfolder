@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import CodeHighlighter from '../../components/CodeHighlighter'
+import ListSearch from '../../components/ListSearch'
 import guide01 from '/public/images/guide/guide01.png';
 import guide02 from '/public/images/guide/guide02.png';
 import guide03 from '/public/images/guide/guide03.png';
@@ -18,6 +19,7 @@ export default function Next() {
     <div className="listWrap">
       <CodeHighlighter />
       <h2>Next.JS <p>(13버전기준)</p></h2>
+      <ListSearch />
       <div>
 
         {/* 프로젝트 생성하기 */}
@@ -252,16 +254,88 @@ export default function Next() {
   </div>
 </div>
 
-{/* aaaaaaaaaaaaaa */}
+{/* props */}
 <div className="list">
-  <h3>aaaaaaaaaaaaaa</h3>
+  <h3>props</h3>
   <div className="cont">
-    <p>ppppppppp</p>
-    <code className='code'>cccccccc</code>
+    <p>원래 하나의 컴포넌트는 다른 컴포넌트에 있는 변수를 사용할 수 없습니다. <br/>
+      하지만 각 컴포넌트가 부모 자식관계인 경우 props 문법을 사용하면 이용가능합니다. 
+    </p>
+    <p>props는 부모에 있는것을 자식컴포넌트에서만 사용가능합니다.</p>
+    <p>형제요소나 부모요소로 보내는건 불가능</p>
+    <p>1. 자식컴포넌트 사용하는 곳에 가서 <span className='red'>&#60;자식컴포넌트 작명=&#123;전해줄데이터&#125; /&#62;</span> </p>
+    <p>2. 자식컴포넌트 정의부분으로 가서 props라는 파라미터 등록 후 props.작명 사용</p>
+    <p>이러면 부모가 자식에게 변수나 데이터를 전송해줄 수 있습니다.</p>
+    <p>
+      (참고1) props는 &#60;CartItem 이런거=&#123;이런거&#125;  저런거=&#123;저런거&#125;&#62; 이렇게 많이 전송가능<br/>
+      (참고2) 일반 문자데이터 전송하려면 중괄호 없이 &#60;CartItem 어쩌구="어쩌구"&#62; 해도 됩니다.
+    </p>
+    <code className='code'>
+      export default function Cart() &#123;<br/>
+        &nbsp;&nbsp; let 장바구니 = ['Tomatoes', 'Pasta']<br/>
+        &nbsp;&nbsp; return (<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp; &#60;div&#62;<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#60;h4&#62;Cart&#60;/h4&#62;<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#60;CartItem 상품=&#123;장바구니[0]&#125;/&#62;<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#60;CartItem 상품=&#123;장바구니[1]&#125;/&#62;<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp; &#60;/div&#62;<br/>
+        &nbsp;&nbsp; )<br/>
+        &#125;<br/><br/>
+
+        function CartItem(props)&#123;<br/>
+        &nbsp;&nbsp; return(<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp; &#60;div className="cart-item"&#62;<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#60;p&#62;&#123;props.상품&#125;&#60;/p&#62;<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#60;p&#62;$40&#60;/p&#62;<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#60;p&#62;1개&#60;/p&#62;<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp; &#60;/div&#62;<br/>
+        &nbsp;&nbsp; )<br/>
+      &#125;  
+    </code>
   </div>
 </div>
 
-{/* aaaaaaaaaaaaaa */}
+{/* state 문법 */}
+<div className="list">
+  <h3>state 문법</h3>
+  <div className="cont">
+    <p>변경이 자주 되는 값들은 state 변수로 넣자.</p>
+    <p>상단에 import 불러와주고 변수를 아래 형태처럼 만든 후 <span className='red'>set작명에 데이터를 수정</span>해준다</p>
+    <code className='code'>
+      import &#123;useState&#125; from 'react'<br/>
+      let [변수이름작명, 함수작명] = useState(변수에넣을값);
+    </code>
+    <code className='code'>
+      import &#123;useState&#125; from 'react'<br/>
+      let [count, setCount] = useState(0);<br/><br/>
+
+      &#60;p className='num'&#62;&#123;count&#125;&#60;/p&#62;<br/>
+      &#60;h4 onClick=&#123;()=&#62;&#123; setCount(count++); &#125;&#125;&#62;버튼&#60;/h4&#62;<br/>
+    </code>
+    <p>array로도 가능</p>
+    <code className='code'>
+      let 상품 = ['Tomatoes', 'Pasta', 'Coconut'];<br/>
+      let [수량, 수량변경] = useState([0,0,0]);
+    </code>
+    <p>
+      위에 array 값 변경은 ...을 사용해야한다<br/>
+      기존 array를 복사해서 사용(복사시 ...포함하여 복사)
+    </p>
+    <code className='code'>
+&#60;span&#62;&#123;수량[0]&#125;&#60;/span&#62;<br/>
+&#60;button onClick=&#123;()=&#62;&#123; <br/>
+&nbsp;&nbsp;let copy = [...수량]<br/>
+&nbsp;&nbsp;copy[0]++<br/>
+&nbsp;&nbsp;수량변경(copy)<br/>
+&#125;&#125;&#62;+&#60;/button&#62;
+    </code>
+
+    <code className='code'></code>
+    <code className='code'></code>
+  </div>
+</div>
+
+{/* aaaaaaaaaaaaaa
 <div className="list">
   <h3>aaaaaaaaaaaaaa</h3>
   <div className="cont">
@@ -269,6 +343,7 @@ export default function Next() {
     <code className='code'>cccccccc</code>
   </div>
 </div>
+ */}
         
 
       </div>
