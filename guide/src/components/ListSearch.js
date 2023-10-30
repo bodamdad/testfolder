@@ -23,8 +23,9 @@ export default function SearchController() {
   }, []);
 
   return (
-    <div>
+    <div className='listSearchWrap'>
       <input className="search" type="text" placeholder="title 검색" onChange={e => setSearchText(e.target.value)}/>
+      <button>초기화</button>
     </div>
   );
 }

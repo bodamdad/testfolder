@@ -29,6 +29,8 @@ code .blue {color:#2195c6;}
 code .red {color:#E06C75;}
 
 /* listWrap */
+.listSearchWrap {display:flex;text-wrap:nowrap;gap:10px;}
+.listSearchWrap button {border:none;background:#282c34;color:#fff;padding:6px 20px;border-radius:4px;cursor:pointer;}
 .listWrap {height:3000px;font-size:16px;}
 .listWrap .search {width:100%;}
 .listWrap .list {display:flex;align-items: flex-start;gap:40px;padding:20px 0;}

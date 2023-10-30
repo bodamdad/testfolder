@@ -1,11 +1,32 @@
+export async function getServerSideProps() {
+  const res = await fetch('../../api/getDb');
+  const data = await res.json();
 
-import BoardBodamList from '../../component/BoardBodamList/BoardBodamList'
+  if (!data || data.error) {
+    return {
+      notFound: true,
+    };
+  }
 
-export default async function boardList() {
+  return {
+    props: { data },
+  };
+}
+
+export default function BoardBodamList({data}) {
+
   return (
     <div>
-      가나다라
-      <BoardBodamList />
+      {Array.isArray(data) && data.map(user => (
+        <div key={user.wr_id}>
+          <p>ID: {user.wr_seo_title}</p>
+          <p>Name: {user.wr_link1}</p>
+        </div>
+      ))}
+      
+      <div>
+            <p>ID:  </p>
+      </div>
     </div>
-  )
+  );
 }

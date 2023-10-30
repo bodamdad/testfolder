@@ -1,7 +1,6 @@
-import { Inter } from 'next/font/google'
-import '/css/globals.css'
-
-const inter = Inter({ subsets: ['latin'] })
+import '../css/globals.css'
+import '../css/layout.css'
+import '../css/common.css'
 
 export const metadata = {
   title: '보담이네',
@@ -11,7 +10,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="ko">
-      <body className={inter.className}>{children}</body>
+      <body>{children}</body>
     </html>
   )
 }
