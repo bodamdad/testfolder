@@ -1,12 +1,21 @@
-.boardBodamList .boardList ul {display:flex;flex-wrap:wrap;}
-.boardBodamList .boardList ul li {flex:0 0 33.3333%;overflow:hidden;}
-.boardBodamList .boardList ul li a {display:flex;flex-direction:column;padding:10px;}
-.boardBodamList .boardList ul li .imgWrap {border-radius:20px;overflow:hidden;}
-.boardBodamList .boardList ul li .textWrap p span {text-wrap: nowrap;}
-.boardBodamList .boardList ul li .text01 span:last-child {text-wrap: wrap;}
-.boardBodamList .boardList ul li .text02 {margin-top:auto;}
-
-.imgWrap {position:relative;width:300px;height:200px;overflow:hidden;background:#aaa;} /* 썸네일 영역 크기 지정해주기 */
-.imgWrap img {position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);} /* 이미지 중앙 정렬 */
-.imgWrap.thumbW img {max-width:100%;width:100%;max-height:none;} /* 이미지 세로가 긴경우 가로 크기 맞춤 */
-.imgWrap.thumbH img {max-height:100%;height:100%;max-width:none;} /* 이미지 가로가 긴경우 세로 크기 맞춤 */
+.list-bg {
+    background: rgb(249, 250, 255);
+    padding: 10px;
+  }
+  .list-item {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 5px;
+    box-shadow: rgb(224, 224, 224) 0px 2px 4px 0px;
+  }
+  .list-item h4 {
+    font-size: 20px;
+    font-weight: 800;
+    margin: 0;
+  }
+  .list-item p {
+    color: grey;
+    margin : 5px 0px;
+  } 
+  

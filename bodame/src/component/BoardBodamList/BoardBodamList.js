@@ -1,28 +1,27 @@
-import pool from '/lib/db.js';
+'use client'
+import React, { useEffect, useState } from 'react';
 
-export default function BoardBodamList({data}) {
-  
+function Layout() {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch('/api/data');
+      const data = await response.json();
+      setData(data);
+    }
+
+    fetchData();
+  }, []);
 
   return (
     <div>
-      <p>component</p>
-      {data.map(item => (
-        <div key={item.wr_id}>
-          <p>ID: {item.wr_seo_title}</p>
-          <p>Name: {item.wr_link1}</p>
-        </div>
+      {/* Render data */}
+      {data && data.map(item => (
+        <div key={item.id}>{item.name}</div>
       ))}
     </div>
-    
   );
 }
 
-
-export async function getServerSideProps() {
-  const [rows] = await pool.execute('SELECT * FROM g5_write_bodam0001');
-  return {
-      props: {
-          data: rows,
-      },
-  };
-}
+export default Layout;
