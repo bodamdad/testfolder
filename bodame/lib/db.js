@@ -1,10 +1,11 @@
-import mysql from 'mysql2/promise';
+import knex from "knex";
 
-const pool = mysql.createPool({
+export const db = knex({
+  client: "mysql2",
+  connection: {
     host: 'bodam-e.com',
     user: 'ljlj123',
     password: 'Lj!13402413',
     database: 'ljlj123'
+  },
 });
-
-export default pool;

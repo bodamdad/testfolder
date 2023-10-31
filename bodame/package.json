@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "knex": "^3.0.1",
     "mariadb": "^3.2.2",
     "mysql": "^2.18.1",
     "mysql2": "^3.6.2",
