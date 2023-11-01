@@ -21,6 +21,84 @@ export default function Next() {
       <h2>Next.JS <p>(13버전기준)</p></h2>
       <ListSearch />
       <div>
+      
+
+
+{/* aaaaaaaaaaaaaa
+<div className="list">
+  <h3>aaaaaaaaaaaaaa</h3>
+  <div className="cont">
+    <p>ppppppppp</p>
+    <code className='code'>cccccccc</code>
+  </div>
+</div>
+ */}  
+
+{/* 데이터 연결 */}
+<div className="list">
+  <h3>데이터 연결 (mariaDB)</h3>
+  <div className="cont">
+    <p>
+      서버 데이터베이스 연결하기<br/>
+      /lib/db.js
+    </p>
+    <code className='code'>
+    import mysql from 'mysql2/promise';<br/><br/>
+
+    const pool = mysql.createPool(&#123;<br/>
+      &nbsp;&nbsp;host: 'bodam-e.com',<br/>
+      &nbsp;&nbsp;user: 'ljlj123',<br/>
+      &nbsp;&nbsp;password: 'Lj!13402413',<br/>
+      &nbsp;&nbsp;database: 'bodame'<br/>
+      &#125;);
+
+    export default pool;
+    </code>
+
+    <p>
+      데이터베이스에서 특정 테이블 불러오기<br/>
+      
+    </p>
+    <code className='code'>
+      import db from '/lib/db';<br/><br/>
+      export default async (req, res) =&#62; &#123;<br/>
+        &nbsp;&nbsp;try &#123;<br/>
+        &nbsp;&nbsp;  &nbsp;&nbsp;const [rows] = await db.execute('SELECT * FROM testBoard');<br/>
+        &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;res.status(200).json(rows);<br/>
+        &nbsp;&nbsp;  &nbsp;&nbsp;&#125; catch (error) &#123;<br/>
+        &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;res.status(500).json(&#123; error: error.message &#125;);<br/>
+        &nbsp;&nbsp;&#125;<br/>
+      &#125;;
+    </code>
+
+<p>
+  페이지에서 적용하기<br/>
+  <span className='red'>$&#123;process.env.NEXT_PUBLIC_API_URL&#125;</span> 부분은 url 부분이라 따로 파일로 뺌<br/>
+  src/app/list/page.js (app 폴더 내부에 아무페이지)
+</p>
+<code>
+  export default async function List() &#123;<br/>
+  &nbsp;&nbsp;const res = await fetch(`$&#123;process.env.NEXT_PUBLIC_API_URL&#125;/api/testBoard`);<br/>
+  &nbsp;&nbsp;const posts = await res.json();<br/><br/>
+  &nbsp;&nbsp;return (<br/>
+  &nbsp;&nbsp;  &nbsp;&nbsp;&#60;div&#62;<br/>
+  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;&#60;p&#62;&#123;posts[0].content&#125;&#60;/p&#62;<br/>
+  &nbsp;&nbsp;  &nbsp;&nbsp;&#60;/div&#62;<br/>
+  &nbsp;&nbsp;);<br/>
+  &#125;
+
+</code>
+
+<p>
+<span className='red'>$&#123;process.env.NEXT_PUBLIC_API_URL&#125;</span> 부분 파일<br/>
+루트의 .env 파일
+</p>
+<code className='code'>
+NEXT_PUBLIC_API_URL=http://localhost:3000
+</code>
+
+  </div>
+</div>
 
         {/* 프로젝트 생성하기 */}
         <div className="list">
@@ -162,6 +240,34 @@ export default function Next() {
               &#60;/div&#62;<br/>
               )<br/>
               &#125;) 
+            </code>
+            
+            <p>객체의 경우</p>
+            <code className='code'>
+
+              &#60;div className="list-bg"&#62;<br/>
+                &nbsp;&nbsp;let posts = &#91;&#123;_id : 'asjdjf', title : '타이틀1', content : '컨텐츠1'&#125;, &#123;_id : 'asjdjf2', title : '타이틀2', content : '컨텐츠2'&#125;, &#123;_id : 'asjdjf3', title : '타이틀3', content : '컨텐츠3'&#125;	&#93;<br/>
+                &nbsp;&nbsp;&#123;posts.map((postsDb, i)=&#62;<br/>
+                &nbsp;&nbsp;  &nbsp;&nbsp;&#60;div className="list-item" key=&#123;i&#125;&#62;<br/>
+                &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;&#60;Link href=&#123;`/detail/$&#123;postsDb._id&#125;`&#125;&#62;&#60;h4&#62;&#123;postsDb.title&#125;&#60;/h4&#62;&#60;/Link&#62;<br/>
+                &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;&#60;p&#62;&#123;postsDb.content&#125;&#60;/p&#62;<br/>
+                &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;&#60;p&#62;&#123;postsDb._id&#125;&#60;/p&#62;<br/>
+                &nbsp;&nbsp;  &nbsp;&nbsp;&#60;/div&#62;<br/>
+                &nbsp;&nbsp;)&#125;<br/>
+              &#60;/div&#62;
+
+            </code>
+
+
+            <p>
+              return 만 있을경우 생략가능 (중괄호, 소괄호도 같이 생략)
+            </p>
+            <code className='code'>
+              상품.map((a, i)=&#62;<br/>
+              &#60;div className="food" key=&#123;i&#125;&#62;<br/>
+              &#60;h4&#62;&#123;a&#125; $40&#60;/h4&#62;<br/>
+              &#60;/div&#62;<br/>
+              ) 
             </code>
           </div>
         </div>
@@ -333,18 +439,7 @@ export default function Next() {
     <code className='code'></code>
     <code className='code'></code>
   </div>
-</div>
-
-{/* aaaaaaaaaaaaaa
-<div className="list">
-  <h3>aaaaaaaaaaaaaa</h3>
-  <div className="cont">
-    <p>ppppppppp</p>
-    <code className='code'>cccccccc</code>
-  </div>
-</div>
- */}
-        
+</div>       
 
       </div>
     </div>
