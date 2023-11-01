@@ -19,3 +19,20 @@
     margin : 5px 0px;
   } 
   
+  .p-20 {
+    padding: 20px;
+  }
+  input {
+    box-sizing: border-box;
+    padding: 10px;
+    display: block;
+    margin-bottom: 10px;
+  }
+  button {
+    padding: 10px 15px;
+    background: lightgray;
+    border: none;
+    border-radius: 5px;
+    cursor:pointer;
+  } 
+  .listWrite {background:rgba(0,0,0,0.8);color:#fff;display:inline-block;padding:10px 20px;border-radius:8px;}

@@ -1,17 +1,6 @@
 import Image from 'next/image';
 import CodeHighlighter from '../../components/CodeHighlighter'
 import ListSearch from '../../components/ListSearch'
-import guide01 from '/public/images/guide/guide01.png';
-import guide02 from '/public/images/guide/guide02.png';
-import guide03 from '/public/images/guide/guide03.png';
-import guide04 from '/public/images/guide/guide04.png';
-import guide05_1 from '/public/images/guide/guide05_1.png';
-import guide05_2 from '/public/images/guide/guide05_2.png';
-import guide05_3 from '/public/images/guide/guide05_3.png';
-import guide05_4 from '/public/images/guide/guide05_4.png';
-import guide06 from '/public/images/guide/guide06.png';
-import guide07 from '/public/images/guide/guide07.png';
-import guide08 from '/public/images/guide/guide08.png';
 
 export default function Next() {
   return (
@@ -21,10 +10,7 @@ export default function Next() {
       <h2>Next.JS <p>(13버전기준)</p></h2>
       <ListSearch />
       <div>
-      
-
-
-{/* aaaaaaaaaaaaaa
+      {/* aaaaaaaaaaaaaa
 <div className="list">
   <h3>aaaaaaaaaaaaaa</h3>
   <div className="cont">
@@ -33,6 +19,79 @@ export default function Next() {
   </div>
 </div>
  */}  
+
+{/* 서버 ... */}
+<div className="list">
+  <h3>서버에 데이터 주고받기</h3>
+  <div className="cont">
+    <p>유저에게 데이터전송 <span className='red'>GET</span>, 입력 <span className='red'>POST</span>, 수정 <span className='red'>PUT</span>, 삭제 <span className='red'>DELETE</span></p>
+    <p>src/app/write/page.js</p>
+    <code className='code'>
+export default async function Write() &#123;<br/>
+  &nbsp;&nbsp;return (<br/>
+  &nbsp;&nbsp;  &nbsp;&nbsp;&#60;div className="p-20"&#62;<br/>
+  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;&#60;form <span className='red'>action="/api/post/new"</span> <span className='red'>method="POST"</span>&#62;<br/>
+  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;&#60;input name="title" placeholder="글제목"/&#62;<br/>
+  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;&#60;input name="content" placeholder="글내용"/&#62;<br/>
+  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;&#60;button type="submit"&#62;전송&#60;/button&#62;<br/>
+  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;&#60;/form&#62;<br/>
+  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;&#60;form action="/api/post/new2" <span className='red'>method="GET"</span>&#62;<br/>
+  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;&#60;button type="submit"&#62;현재시간은&#60;/button&#62;<br/>
+  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;&#60;/form&#62;<br/>
+  &nbsp;&nbsp;  &nbsp;&nbsp;&#60;/div&#62;<br/>
+  &nbsp;&nbsp;)<br/>
+&#125; 
+    </code>
+
+    <p>form의 arction에서 받은 url로 method가 전송됩니다.</p>
+    <code className='code'>
+{/* import db from '/lib/db';
+
+export default async function handler(req, res) {
+if (req.method === 'POST') {
+const { title, content } = req.body;  // 요청 본문에서 title과 content를 추출합니다.
+try {
+await db.execute('INSERT INTO testBoard (title, content) VALUES (?, ?)', [title, content]);  // 데이터를 데이터베이스에 저장합니다.
+res.status(200).json({ message: 'Post created successfully' });
+} catch (error) {
+res.status(500).json({ error: error.message });
+}
+}
+
+if (req.method === 'GET') {
+try {
+const [rows] = await db.execute('SELECT _id, title FROM testBoard');  // 데이터베이스에서 데이터를 가져옵니다.
+res.status(200).json(rows);
+} catch (error) {
+res.status(500).json({ error: error.message });
+}
+}
+} */}
+
+    </code>
+
+    <p></p>
+    <code className='code'>
+      
+    </code>
+
+    <p></p>
+    <code className='code'>
+      
+    </code>
+
+    <p></p>
+    <code className='code'>
+      
+    </code>
+
+    <p></p>
+    <code className='code'>
+      
+    </code>
+
+  </div>
+</div>
 
 {/* 데이터 연결 */}
 <div className="list">
@@ -292,21 +351,11 @@ NEXT_PUBLIC_API_URL=http://localhost:3000
 
         {/* 컴포넌트 만들기*/}
         <div className="list">
-          <h3>컴포넌트 만들기</h3>
+          <h3>컴포넌트 만들기(component)</h3>
           <div className="cont">
-            <p>1. 컴포넌트 만들고 싶으면 우선 function을 만들고 작명합니다. 관습적으로 영어 대문자로 시작합니다.</p>
-            <p>2. function의 return ( ) 안에 축약할 html을 담습니다.</p>
-            <p>3. 원하는 곳에서 &#60;작명/&#62; 을 사용합니다. &#60;Header /&#62;</p>
-            <p>그럼 그 자리에 return( ) 안에 있던 html들이 붙여넣어집니다.</p>
+            <p>컴포넌트 만들고 싶으면 우선 function을 만들고 작명합니다. 관습적으로 영어 대문자로 시작합니다.</p>
+            <p>function의 return ( ) 안에 축약할 html을 담습니다.</p>
             <code className='code'>
-            export default function Cart() &#123;<br/>
-            &nbsp;&nbsp;return (<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;&#60;div&#62;<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#60;Item /&#62;<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;&#60;/div&#62;<br/>
-            &nbsp;&nbsp;)<br/>
-            &#125;<br/><br/>
-
             function Item()&#123;<br/>
             &nbsp;&nbsp;return(<br/>
               &nbsp;&nbsp;&nbsp;&nbsp;&#60;div className="cart-item"&#62;<br/>
@@ -315,7 +364,22 @@ NEXT_PUBLIC_API_URL=http://localhost:3000
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#60;p&#62;1개&#60;/p&#62;<br/>
               &nbsp;&nbsp;&nbsp;&nbsp;&#60;/div&#62;<br/>
             &nbsp;&nbsp;)<br/>
-            &#125;               
+            &#125;             
+            </code>
+
+            <p>import를 하고</p>
+            <p>원하는 곳에서 &#60;작명/&#62; 을 사용합니다. &#60;Header /&#62;</p>
+            <p>그럼 그 자리에 return( ) 안에 있던 html들이 붙여넣어집니다.</p>
+            <code className='code'>
+            import Item from '../../components/Item';<br/><br/>
+            export default function Cart() &#123;<br/>
+            &nbsp;&nbsp;return (<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;&#60;div&#62;<br/>
+              <span className='green'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#60;Item /&#62;</span><br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;&#60;/div&#62;<br/>
+            &nbsp;&nbsp;)<br/>
+            &#125;<br/><br/>
+  
             </code>
           </div>
         </div>

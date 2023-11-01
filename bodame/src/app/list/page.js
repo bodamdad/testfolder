@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 export default async function List(props) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/testBoard`);
@@ -6,13 +6,15 @@ export default async function List(props) {
   
   return (
     <div className="list-bg">
-      {posts.map((post, i)=>
+
+      {posts.map((postsDb, i)=>
           <div className="list-item" key={i}>
-            <Link href={`/detail/${posts[i]._id}`}><h4>{posts[i].title}</h4></Link>
-            <p>{posts[i].content}</p>
-            <p>{posts[i]._id}</p>
+            <Link href={`/detail/${postsDb._id}`}><h4>{postsDb.title}</h4></Link>
+            <p>{postsDb.content}</p>
+            <p>{postsDb._id}</p>
           </div>
       )}
+      <Link href='/write' className='listWrite'>글쓰기</Link>
     </div>
   );
 }

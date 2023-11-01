@@ -1,0 +1,2 @@
+nav {display:flex;gap:10px;padding:10px;}
+nav a {background:rgba(0,0,0,0.8);color:#fff;display:block;padding:10px 20px;border-radius:8px;}
