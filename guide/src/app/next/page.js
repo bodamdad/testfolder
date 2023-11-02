@@ -45,28 +45,28 @@ export default async function Write() &#123;<br/>
 
     <p>form의 arction에서 받은 url로 method가 전송됩니다.</p>
     <code className='code'>
-{/* import db from '/lib/db';
+import db from '/lib/db';<br/><br/>
 
-export default async function handler(req, res) {
-if (req.method === 'POST') {
-const { title, content } = req.body;  // 요청 본문에서 title과 content를 추출합니다.
-try {
-await db.execute('INSERT INTO testBoard (title, content) VALUES (?, ?)', [title, content]);  // 데이터를 데이터베이스에 저장합니다.
-res.status(200).json({ message: 'Post created successfully' });
-} catch (error) {
-res.status(500).json({ error: error.message });
-}
-}
-
-if (req.method === 'GET') {
-try {
-const [rows] = await db.execute('SELECT _id, title FROM testBoard');  // 데이터베이스에서 데이터를 가져옵니다.
-res.status(200).json(rows);
-} catch (error) {
-res.status(500).json({ error: error.message });
-}
-}
-} */}
+export default async function handler(req, res) &#123;<br/>
+  &nbsp;&nbsp;if (req.method === 'POST') &#123;<br/>
+  &nbsp;&nbsp;const &#123; title, content &#125; = req.body;  // 요청 본문에서 title과 content를 추출합니다.<br/>
+  &nbsp;&nbsp;try &#123;<br/>
+  &nbsp;&nbsp;  &nbsp;&nbsp;await db.execute('INSERT INTO testBoard (title, content) VALUES (?, ?)', [title, content]);  // 데이터를 데이터베이스에 저장합니다.<br/>
+  &nbsp;&nbsp;  &nbsp;&nbsp;res.status(200).json(&#123; message: 'Post created successfully' &#125;);<br/>
+  &nbsp;&nbsp;&#125; catch (error) &#123;<br/>
+  &nbsp;&nbsp;  &nbsp;&nbsp;res.status(500).json(&#123; error: error.message &#125;);<br/>
+  &nbsp;&nbsp;&#125;<br/>
+  &nbsp;&nbsp;&#125;<br/><br/>
+ &nbsp;&nbsp;
+  &nbsp;&nbsp;if (req.method === 'GET') &#123;<br/>
+  &nbsp;&nbsp;try &#123;<br/>
+  &nbsp;&nbsp;const [rows] = await db.execute('SELECT _id, title FROM testBoard');  // 데이터베이스에서 데이터를 가져옵니다.<br/>
+  &nbsp;&nbsp;  &nbsp;&nbsp;res.status(200).json(rows);<br/>
+  &nbsp;&nbsp;&#125; catch (error) &#123;<br/>
+  &nbsp;&nbsp;  &nbsp;&nbsp;res.status(500).json(&#123; error: error.message &#125;);<br/>
+  &nbsp;&nbsp;&#125;<br/>
+  &nbsp;&nbsp;&#125;<br/>
+&#125;
 
     </code>
 
