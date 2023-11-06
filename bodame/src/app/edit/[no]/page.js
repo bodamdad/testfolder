@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react';
 
-export default function Detail() {
+export default function Edit() {
   const [post, setPost] = useState(null);
 
   useEffect(() => {
@@ -17,9 +17,13 @@ export default function Detail() {
   }
 
   return (
-    <div className="list-bg">
-      <h1>{post.title}</h1>
-      <p>{post.content}</p>
+    <div className="p-20">
+      <form action="/api/post/new" method="PUT">
+        <input name="title" placeholder="글제목" defaultValue={post.title}/>
+        <input name="content" placeholder="글내용" defaultValue={post.content}/>
+        <button type="submit">전송</button>
+      </form>
     </div>
   );
 }
+
