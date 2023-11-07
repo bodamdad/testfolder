@@ -10,5 +10,7 @@ export default async function handler(req, res) {
       res.status(500).json({ error: error.message });
         
       }
+  } else if (req.method === 'GET') {
+    console.log('getttt')
   }
 }

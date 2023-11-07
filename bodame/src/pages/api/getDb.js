@@ -1,6 +1,6 @@
 import db from '/lib/db';
 
-export default async (req, res) => {
+const getDb = async (req, res) => {
   try {
     const [rows] = await db.execute('SELECT * FROM ttest');
     res.status(200).json(rows);
@@ -8,3 +8,5 @@ export default async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+export default getDb;

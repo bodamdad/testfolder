@@ -1,6 +1,6 @@
 import db from '/lib/db';
 
-export default async (req, res) => {
+const testBoard_id = async (req, res) => {
   const { _id } = req.query;
   try {
     const [rows] = await db.execute('SELECT * FROM testBoard WHERE _id = ?', [_id]);
@@ -9,3 +9,5 @@ export default async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+export default testBoard_id;

@@ -6,7 +6,7 @@ export default function Edit() {
 
   useEffect(() => {
     const _id = window.location.pathname.split('/').pop();
-    fetch(`/api/testBoard/${_id}`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/testBoard/${_id}`)
       .then(response => response.json())
       .then(data => setPost(data))
       .catch(error => console.error(error));
