@@ -19,13 +19,93 @@ export default function Next() {
   </div>
 </div>
  */}  
+ 
+      {/* 회원 라이브러리 */}
+<div className="list">
+  <h3>회원 라이브러리</h3>
+  <div className="cont">
+    <p>next-auth</p>
+    <code className='code'>npm install next-auth</code>
+
+    <p>GitHub의 경우</p>
+    <p>Github.com 로그인하면 우측상단 Settings -&#62; Developer settings -&#62; OAuth app -&#62; New OAuth App -&#62; 내용입력<br/>
+      Client ID, Client secrets 번호 복사</p>
+    <p>NextAuth 라이브러리 셋팅 (secret : JWT생성용 암호 맘대로 길게 입력하면 됩니다.)</p>
+    <code className='code'>
+import NextAuth from "next-auth";<br/>
+import GithubProvider from "next-auth/providers/github";<br/><br/>
+
+export const authOptions = &#123;<br/>
+&nbsp;&nbsp;  providers: [<br/>
+&nbsp;&nbsp;  &nbsp;&nbsp;  GithubProvider(&#123;<br/>
+&nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  clientId: 'Github에서 발급받은ID',<br/>
+&nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  clientSecret: 'Github에서 발급받은Secret',<br/>
+&nbsp;&nbsp;  &nbsp;&nbsp;  &#125;),<br/>
+&nbsp;&nbsp;  ],<br/>
+&nbsp;&nbsp;  secret : 'jwt생성시쓰는암호'<br/>
+&#125;;<br/>
+export default NextAuth(authOptions); 
+    </code>
+
+    <p>버튼 (/app/LoginBtn.js)</p>
+    <code className='code'>
+'use client';<br/>
+import &#123; signIn &#125; from 'next-auth/react'<br/><br/>
+
+export default function LoginBtn() &#123;<br/>
+&nbsp;&nbsp;return &#60;button onClick=&#123;() =&#62; &#123; signIn() &#125;&#125;&#62;로그인&#60;/button&#62;<br/>
+&#125; 
+    </code>
+
+    <p>server component에서 유저정보 출력</p>
+    <code className='code'>
+import &#123; authOptions &#125; from "@/pages/api/auth/[...nextauth].js"<br/>
+import &#123; getServerSession &#125; from "next-auth"<br/><br/>
+
+export default function Page()&#123;<br/>
+&nbsp;&nbsp;  let session = await getServerSession(authOptions)<br/>
+&nbsp;&nbsp;  if (session) &#123;<br/>
+&nbsp;&nbsp;  &nbsp;&nbsp;  console.log(session)<br/>
+&nbsp;&nbsp;  &#125;<br/>
+&#125;
+    </code>
+  </div>
+</div>
 
 {/* 서버 ... */}
 <div className="list">
-  <h3>서버에 데이터 주고받기</h3>
+  <h3>서버에 데이터 주고받기<br/>게시판예시</h3>
   <div className="cont">
     <p>유저에게 데이터전송 <span className='red'>GET</span>, 입력 <span className='red'>POST</span>, 수정 <span className='red'>PUT</span>, 삭제 <span className='red'>DELETE</span></p>
-    <p>src/app/write/page.js</p>
+    <p>form 태그로 전송시 PUT, DELETE는 사용할 수 없어 외부 라이브러리를 설치해야함</p>
+
+
+
+    <p>src/app/list/page.js (게시판리스트)</p>
+    <code className='code'>
+import Link from 'next/link';<br/><br/>
+
+export default async function List(props) &#123;<br/>
+&nbsp;&nbsp;  const res = await fetch(`$&#123;process.env.NEXT_PUBLIC_API_URL&#125;/api/testBoard`);<br/>
+&nbsp;&nbsp;  const posts = await res.json();<br/>
+&nbsp;&nbsp;  return (<br/>
+&nbsp;&nbsp;  &nbsp;&nbsp;  &#60;div className="list-bg"&#62;<br/>
+&nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &#123;posts.map((postsDb, i)=&#62;<br/>
+&nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &#60;div className="list-item" key=&#123;i&#125;&#62;<br/>
+&nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &#60;Link href=&#123;`/detail/$&#123;postsDb.no&#125;`&#125;&#62;&#60;h4&#62;&#123;postsDb.title&#125;&#60;/h4&#62;&#60;/Link&#62;<br/>
+&nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &#60;p&#62;&#123;postsDb.content&#125;&#60;/p&#62;<br/>
+&nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &#60;p&#62;&#123;postsDb.no&#125;&#60;/p&#62;<br/>
+&nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &#60;Link href=&#123;`/edit/$&#123;postsDb.no&#125;`&#125;&#62;수정&#60;/Link&#62;<br/>
+&nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &#60;/div&#62;<br/>
+&nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  )&#125;<br/>
+&nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &#60;Link href='/write' className='listWrite'&#62;글쓰기&#60;/Link&#62;<br/>
+&nbsp;&nbsp;  &nbsp;&nbsp;  &#60;/div&#62;<br/>
+&nbsp;&nbsp;  );<br/>
+&#125;
+
+    </code>
+
+    <p>src/app/write/page.js (글쓰기)</p>
     <code className='code'>
 export default async function Write() &#123;<br/>
   &nbsp;&nbsp;return (<br/>
@@ -49,35 +129,62 @@ import db from '/lib/db';<br/><br/>
 
 export default async function handler(req, res) &#123;<br/>
   &nbsp;&nbsp;if (req.method === 'POST') &#123;<br/>
-  &nbsp;&nbsp;const &#123; title, content &#125; = req.body;  // 요청 본문에서 title과 content를 추출합니다.<br/>
-  &nbsp;&nbsp;try &#123;<br/>
-  &nbsp;&nbsp;  &nbsp;&nbsp;await db.execute('INSERT INTO testBoard (title, content) VALUES (?, ?)', [title, content]);  // 데이터를 데이터베이스에 저장합니다.<br/>
-  &nbsp;&nbsp;  &nbsp;&nbsp;res.status(200).json(&#123; message: 'Post created successfully' &#125;);<br/>
-  &nbsp;&nbsp;&#125; catch (error) &#123;<br/>
-  &nbsp;&nbsp;  &nbsp;&nbsp;res.status(500).json(&#123; error: error.message &#125;);<br/>
-  &nbsp;&nbsp;&#125;<br/>
+  &nbsp;&nbsp;  &nbsp;&nbsp;const &#123; title, content &#125; = req.body;  // 요청 본문에서 title과 content를 추출합니다.<br/>
+  &nbsp;&nbsp;  &nbsp;&nbsp;try &#123;<br/>
+  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;await db.execute('INSERT INTO testBoard (title, content) VALUES (?, ?)', [title, content]);  // 데이터를 데이터베이스에 저장합니다.<br/>
+  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;res.redirect(302, '/list');<br/>
+  &nbsp;&nbsp;  &nbsp;&nbsp;&#125; catch (error) &#123;<br/>
+  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;res.status(500).json(&#123; error: error.message &#125;);<br/>
+  &nbsp;&nbsp;  &nbsp;&nbsp;&#125;<br/>
   &nbsp;&nbsp;&#125;<br/><br/>
- &nbsp;&nbsp;
-  &nbsp;&nbsp;if (req.method === 'GET') &#123;<br/>
-  &nbsp;&nbsp;try &#123;<br/>
-  &nbsp;&nbsp;const [rows] = await db.execute('SELECT _id, title FROM testBoard');  // 데이터베이스에서 데이터를 가져옵니다.<br/>
-  &nbsp;&nbsp;  &nbsp;&nbsp;res.status(200).json(rows);<br/>
-  &nbsp;&nbsp;&#125; catch (error) &#123;<br/>
-  &nbsp;&nbsp;  &nbsp;&nbsp;res.status(500).json(&#123; error: error.message &#125;);<br/>
-  &nbsp;&nbsp;&#125;<br/>
-  &nbsp;&nbsp;&#125;<br/>
 &#125;
 
     </code>
 
-    <p></p>
+    <p>src/app/detail/[no]/page.js (상세페이지 리스트에서 선택한 게시물의 정보를 가져옴)</p>
     <code className='code'>
-      
+'use client'<br/>
+import &#123; useEffect, useState &#125; from 'react';<br/><br/>
+
+export default function Detail() &#123;<br/>
+&nbsp;&nbsp;  const [post, setPost] = useState(null);<br/>
+&nbsp;&nbsp;
+&nbsp;&nbsp;  useEffect(() =&#62; &#123;<br/><br/>
+&nbsp;&nbsp;  &nbsp;&nbsp;  const no = window.location.pathname.split('/').pop();<br/>
+&nbsp;&nbsp;  &nbsp;&nbsp;  fetch(`/api/testBoard/$&#123;no&#125;`)<br/>
+&nbsp;&nbsp;  &nbsp;&nbsp;  .then(response =&#62; response.json())<br/>
+&nbsp;&nbsp;  &nbsp;&nbsp;  .then(data =&#62; setPost(data))<br/>
+&nbsp;&nbsp;  &nbsp;&nbsp;  .catch(error =&#62; console.error(error));<br/>
+&nbsp;&nbsp;  &#125;, []);<br/><br/>
+&nbsp;&nbsp;
+&nbsp;&nbsp;  if (!post) &#123;<br/>
+&nbsp;&nbsp;  &nbsp;&nbsp;  return &#60;div&#62;Loading...&#60;/div&#62;;<br/>
+&nbsp;&nbsp;  &#125;<br/><br/>
+&nbsp;&nbsp;
+&nbsp;&nbsp;  return (<br/>
+&nbsp;&nbsp;  &nbsp;&nbsp;  &#60;div className="list-bg"&#62;<br/>
+&nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &#60;h1&#62;&#123;post.title&#125;&#60;/h1&#62;<br/>
+&nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &#60;p&#62;&#123;post.content&#125;&#60;/p&#62;<br/>
+&nbsp;&nbsp;  &nbsp;&nbsp;  &#60;/div&#62;<br/>
+&nbsp;&nbsp;  );<br/>
+&#125;
+
     </code>
 
-    <p></p>
+    <p>src/pages/api/testBoard/[no].js(상세페이지에서 불러올 데이터를 필터해주는 소스)</p>
     <code className='code'>
-      
+import db from '/lib/db';<br/><br/>
+
+export default async (req, res) =&#62; &#123;<br/>
+&nbsp;&nbsp;  const &#123; no &#125; = req.query;<br/>
+&nbsp;&nbsp;  try &#123;<br/>
+&nbsp;&nbsp;  &nbsp;&nbsp;  const [rows] = await db.execute('SELECT * FROM testBoard WHERE no = ?', [no]);<br/>
+&nbsp;&nbsp;  &nbsp;&nbsp;  res.status(200).json(rows[0]);<br/>
+&nbsp;&nbsp;  &#125; catch (error) &#123;<br/>
+&nbsp;&nbsp;  &nbsp;&nbsp;  res.status(500).json(&#123; error: error.message &#125;);<br/>
+&nbsp;&nbsp;  &#125;<br/>
+&#125;;
+
     </code>
 
     <p></p>

@@ -5,8 +5,8 @@ export default function Detail() {
   const [post, setPost] = useState(null);
 
   useEffect(() => {
-    const no = window.location.pathname.split('/').pop();
-    fetch(`/api/testBoard/${no}`)
+    const _id = window.location.pathname.split('/').pop();
+    fetch(`/api/testBoard/${_id}`)
       .then(response => response.json())
       .then(data => setPost(data))
       .catch(error => console.error(error));

@@ -18,6 +18,9 @@
     color: grey;
     margin : 5px 0px;
   } 
+  .list-item button {
+    transition:0.4s ease;
+  }
   
   .p-20 {
     padding: 20px;
@@ -36,3 +39,6 @@
     cursor:pointer;
   } 
   .listWrite {background:rgba(0,0,0,0.8);color:#fff;display:inline-block;padding:10px 20px;border-radius:8px;}
+
+  .userWrap {display:flex;align-items:center;}
+  .userWrap img {max-height:30px;border-radius:100%;}
