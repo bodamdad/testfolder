@@ -6,6 +6,7 @@ import LogoutBtn from '../app/LogoutBtn'
 
 export default async function Nav() {
     let session = await getServerSession(authOptions)
+    console.log(session)
     return (
         <nav>
             <Link href="/list">게시판</Link><br />

@@ -12,11 +12,14 @@
     "knex": "^3.0.1",
     "mariadb": "^3.2.2",
     "mysql": "^2.18.1",
-    "mysql2": "^3.6.2",
+    "mysql2": "^3.6.3",
     "next": "^14.0.1",
     "next-auth": "^4.24.4",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.3.17",
+    "react-native-sqlite-storage": "file:./shims/react-native-sqlite-storage"
   },
   "devDependencies": {
     "eslint": "^8",

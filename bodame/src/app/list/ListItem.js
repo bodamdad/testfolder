@@ -2,10 +2,12 @@
 import Link from 'next/link';
 
 export default function ListItem({posts}) {
+  const reversedPosts = [...posts].reverse();
+
   return (
     <div className="list-bg">
 
-    {posts.map((postsDb, i)=>
+    {reversedPosts.map((postsDb, i)=>
           <div className="list-item" key={i}>
             <Link href={`/detail/${postsDb._id}`}><h4>{postsDb.title}</h4></Link>
             <p>{postsDb.content}</p>
