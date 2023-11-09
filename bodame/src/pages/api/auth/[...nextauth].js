@@ -12,31 +12,31 @@ export const authOptions = {
   secret : process.env.GITHUB_SECRETJUN,
 
   callbacks: {
-    async signIn(user, account, profile) {
-      const isAllowedToSignIn = true;
-      if (isAllowedToSignIn) {
-        try {
-          // 사용자 데이터베이스에 저장 또는 업데이트하는 로직
-          const result = await db.query(
-            `INSERT INTO users (githubId, name, email, image) VALUES (?, ?, ?, ?)
-             ON DUPLICATE KEY UPDATE name=?, email=?, image=?`,
-            [account.providerAccountId, user.name, user.email, user.image, user.name, user.email, user.image]
-          );
-          // INSERT 또는 UPDATE 성공 시
-          if (result) {
-            return true; // 로그인 허용
-          }
-        } catch (error) {
-          // 오류 처리
-          console.error('Error saving user to database', error);
-          return false; // 로그인 거부
-        }
-      } else {
-        // 사용자 로그인 거부
-        return false;
+    async signIn({ user }) {
+      if (user) {
+        // 여기서 user 객체는 user.user 내부에 있음
+        const userDetails = user.user;
+    
+        // 데이터베이스에 사용자 정보 저장
+        const result = await db.query(
+          `INSERT INTO users (githubId, name, email, image) VALUES (?, ?, ?, ?)
+           ON DUPLICATE KEY UPDATE name=?, email=?, image=?`,
+          [
+            userDetails.id, // GitHub ID
+            userDetails.name, // GitHub 이름
+            userDetails.email, // 이메일 
+            userDetails.image, // 이미지
+            userDetails.name,
+            userDetails.email,
+            userDetails.image
+          ]
+        );
       }
+    
+      // 에러가 없다면 true를 반환하여 로그인 프로세스를 계속 진행
+      return true;
     },
-    // ... 다른 콜백들
+        // ... 다른 콜백들
   },
 
 };
